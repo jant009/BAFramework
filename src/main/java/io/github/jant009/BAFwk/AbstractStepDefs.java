@@ -1,4 +1,6 @@
-import logger.LoggerFacade;
+package io.github.jant009.BAFwk;
+
+import io.github.jant009.BAFwk.logger.LoggerFacade;
 
 public class AbstractStepDefs {
     protected static final LoggerFacade LOGGER = new LoggerFacade();

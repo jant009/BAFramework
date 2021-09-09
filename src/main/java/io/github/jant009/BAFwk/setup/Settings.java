@@ -1,4 +1,4 @@
-package setup;
+package io.github.jant009.BAFwk.setup;
 
 import java.io.FileInputStream;
 import java.io.IOException;

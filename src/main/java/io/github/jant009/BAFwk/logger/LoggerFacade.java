@@ -1,4 +1,4 @@
-package logger;
+package io.github.jant009.BAFwk.logger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

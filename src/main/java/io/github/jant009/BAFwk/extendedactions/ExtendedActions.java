@@ -1,12 +1,19 @@
-import exception.CookieNotInitializedException;
+package io.github.jant009.BAFwk.extendedactions;
+
+import io.github.jant009.BAFwk.exception.CookieNotInitializedException;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.time.SystemClock;
 import net.thucydides.core.guice.Injectors;
+import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.function.Function;
 import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -75,5 +82,49 @@ public class ExtendedActions {
     public static void AssertThatValueMatch(String observed, String regexp) {
         if (! regexp.equalsIgnoreCase(ExtendedActions.NA))
             assertThat(observed).matches(Pattern.compile(regexp));
+    }
+
+    public static void scrollByPixel(PageObject page, int x, int y ){
+
+        ((JavascriptExecutor) page.getDriver()).executeScript(("window.scrollBy(" + x + "," + y +")"));
+
+    }
+
+    //methode override to get lower text
+    public static ExpectedCondition<Boolean> loweredTextToBePresentInElement(
+            final WebElementFacade element, final String text) {
+
+        return new ExpectedCondition<Boolean>() {
+            @NotNull
+            @Override
+            public <V> Function<V, Boolean> compose(@NotNull Function<? super V, ? extends WebDriver> before) {
+                return null;
+            }
+
+            @Override
+            public Boolean apply(WebDriver driver) {
+                try {
+                    String elementText = element.getText().toLowerCase();
+                    return elementText.contains(text.toLowerCase());
+                } catch (StaleElementReferenceException e) {
+                    return null;
+                }
+            }
+
+            @Override
+            public String toString() {
+                return String.format("text ('%s') to be present in element %s", text, element);
+            }
+        };
+    }
+
+    public static void waitToTextToBePresentInElement(PageObject page, WebElementFacade element, String text, int timeoutInSeconds){
+        WebDriverWait waiter = new WebDriverWait(page.getDriver(), timeoutInSeconds);
+        waiter.until(loweredTextToBePresentInElement(element,text.toLowerCase()));
+    }
+
+    public static void waitUntilUrlContains(PageObject page, String text, int timeoutInSeconds) {
+        WebDriverWait waiter = new WebDriverWait(page.getDriver(), timeoutInSeconds);
+        waiter.until(ExpectedConditions.urlContains(text));
     }
 }

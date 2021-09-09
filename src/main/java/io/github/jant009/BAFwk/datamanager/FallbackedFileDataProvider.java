@@ -1,4 +1,4 @@
-package datamanager;
+package io.github.jant009.BAFwk.datamanager;
 
 import java.util.ArrayList;
 

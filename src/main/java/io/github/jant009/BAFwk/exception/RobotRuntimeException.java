@@ -1,4 +1,4 @@
-package exception;
+package io.github.jant009.BAFwk.exception;
 
 public class RobotRuntimeException extends Exception {
     public RobotRuntimeException(String message) {

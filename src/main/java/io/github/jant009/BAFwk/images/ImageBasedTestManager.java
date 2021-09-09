@@ -1,6 +1,6 @@
-package images;
+package io.github.jant009.BAFwk.images;
 
-import setup.Settings;
+import io.github.jant009.BAFwk.setup.Settings;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
 import org.apache.commons.io.FileUtils;

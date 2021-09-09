@@ -1,6 +1,6 @@
-package datamanager;
+package io.github.jant009.BAFwk.datamanager;
 
-import setup.Settings;
+import io.github.jant009.BAFwk.setup.Settings;
 
 import java.io.FileInputStream;
 import java.io.IOException;
